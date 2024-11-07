@@ -13,11 +13,6 @@ export const Todo = () => {
   const onClickAdd = () => {
     if (todoText === "") return;
     const newTodos = [...incompleteTodos, todoText];
-    if (newTodos.length > 5) {
-      window.alert('6つ以上タスクは追加できません。')
-      setTodoText("");
-      return;
-    }
     setIncompleteTodos(newTodos);
     setTodoText("");
   };
@@ -46,7 +41,13 @@ export const Todo = () => {
  
   return (
     <>
-      <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickAdd}></InputTodo>
+      <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickAdd} disabled={incompleteTodos.length >= 5}></InputTodo>
+      {incompleteTodos.length >= 5 && (
+        <p style={{color: "red"}}>
+          登録できるTODOは5個までです。TODOを完了してください。
+        </p>
+
+      )}
       <IncompleteTodos incompleteTodos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete}></IncompleteTodos>
       <CompleteTodos completeTodos={completeTodos} onClickBack={onClickBack}></CompleteTodos>
       <div></div>
