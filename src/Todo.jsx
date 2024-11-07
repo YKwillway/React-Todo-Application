@@ -13,6 +13,11 @@ export const Todo = () => {
   const onClickAdd = () => {
     if (todoText === "") return;
     const newTodos = [...incompleteTodos, todoText];
+    if (newTodos.length > 5) {
+      window.alert('6つ以上タスクは追加できません。')
+      setTodoText("");
+      return;
+    }
     setIncompleteTodos(newTodos);
     setTodoText("");
   };
